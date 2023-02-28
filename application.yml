@@ -8,10 +8,9 @@ server:
 
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
-  sql:
-    init:
-      schema-locations: classpath*:db/hsqldb/schema.sql
-      data-locations: classpath*:db/hsqldb/data.sql
+  datasource:
+    schema: classpath*:db/hsqldb/schema.sql
+    data: classpath*:db/hsqldb/data.sql
   sleuth:
     sampler:
       probability: 1.0
@@ -25,6 +24,8 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: none
+  jmx:
+      enabled: true
 
 # Spring Boot 1.5 makes actuator secure by default
 management.security.enabled: false
@@ -78,11 +79,6 @@ spring:
     activate:
       on-profile: mysql
   datasource:
-    url: jdbc:mysql://localhost:3306/petclinic?useSSL=false
-    username: root
-    password: petclinic
-  sql:
-    init:
-      schema-locations: classpath*:db/mysql/schema.sql
-      data-locations: classpath*:db/mysql/data.sql
-      mode: ALWAYS
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
+    initialization-mode: ALWAYS
