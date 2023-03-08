@@ -8,10 +8,9 @@ server:
 
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
-  sql:
-    init:
-      mode: always
-      platform: hsqldb
+  datasource:
+    schema: classpath*:db/hsqldb/schema.sql
+    data: classpath*:db/hsqldb/data.sql
   sleuth:
     sampler:
       probability: 1.0
@@ -86,7 +85,3 @@ spring:
     username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
     password: ${MYSQL_SERVER_ADMIN_PASSWORD}
     initialization-mode: ALWAYS
-  sql:
-    init:
-      mode: always
-      platform: mysql
