@@ -8,9 +8,10 @@ server:
 
 # embedded database init, supports mysql too trough the 'mysql' spring profile
 spring:
-  datasource:
-    schema: classpath*:db/hsqldb/schema.sql
-    data: classpath*:db/hsqldb/data.sql
+  sql:
+    init:
+      mode: always
+      platform: hsqldb
   sleuth:
     sampler:
       probability: 1.0
@@ -25,7 +26,7 @@ spring:
     hibernate:
       ddl-auto: none
   jmx:
-      enabled: true
+    enabled: true
 
 # Spring Boot 1.5 makes actuator secure by default
 management.security.enabled: false
@@ -81,4 +82,11 @@ spring:
   datasource:
     schema: classpath*:db/mysql/schema.sql
     data: classpath*:db/mysql/data.sql
+    url: jdbc:mysql://${MYSQL_SERVER_FULL_NAME}:3306/${MYSQL_DATABASE_NAME}?useSSL=false
+    username: ${MYSQL_SERVER_ADMIN_LOGIN_NAME}
+    password: ${MYSQL_SERVER_ADMIN_PASSWORD}
     initialization-mode: ALWAYS
+  sql:
+    init:
+      mode: always
+      platform: mysql
